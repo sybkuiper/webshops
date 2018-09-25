@@ -1,6 +1,8 @@
 <DOCTYPE! html>
 <html>
-	<title>html</title>
+	<head>
+	<title>Html</title>
+	</head>
 	<body>
 	
 	</body>
