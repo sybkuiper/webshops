@@ -1,0 +1,28 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 2rem;
+}
+.dropdown-menu.show.loginMenu {
+  width: 250px;
+  padding: 10px;
+}
+
+.jumbotronImg {
+	position: relative;
+	background-image: url("../img/headerImg.jpg");
+	background-size: 100%;
+	color: white;
+}
+.jumbotronImgOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(128,128,128,0.7);
+  z-index: 1;
+}
+@media screen and (max-width: 992px) {
+.dropdown-menu.show.loginMenu {
+  width: auto;
+}
