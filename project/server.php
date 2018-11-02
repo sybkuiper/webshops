@@ -1,11 +1,11 @@
-<?php
+<?php 
 session_start();
 
 $username = "";
 $email    = "";
 $errors = array(); 
 
-$db = mysqli_connect('localhost', 'root', 'root', 'registration');
+$db = mysqli_connect('localhost', 'root', '', 'hr');
 
 // Registreer user
 if (isset($_POST['reg_user'])) {
@@ -35,8 +35,9 @@ if (isset($_POST['reg_user'])) {
   // ---------------------------------- Controlleer of gegevens niet al in database zitten -----------------------//
   $user_check_query = "SELECT * FROM users WHERE username='$username' OR email='$email' LIMIT 1";
   $result = mysqli_query($db, $user_check_query);
-  $user = mysqli_fetch_assoc($result);
-  
+  //$user = mysqli_fetch_assoc($result);
+  $user = 0;
+
   if ($user) { 
     if ($user['username'] === $username) {
       array_push($errors, "Gebruikernaam bestaat al!");
@@ -57,8 +58,8 @@ if (isset($_POST['reg_user'])) {
 
   	mysqli_query($db, $query);
     sendEmail($username,$email,$hash,$password_1);
-  	//$_SESSION['username'] = $username;
-  	//$_SESSION['success'] = "Je bent nu ingelogd";
+  	$_SESSION['username'] = $username;
+  	$_SESSION['success'] = "Je bent nu ingelogd";
   	header('location: verify.php');
   }
 }
@@ -81,8 +82,10 @@ if (isset($_POST['login_user'])) {
     
     $resultsActive = mysqli_query($db, $queryActive);
     if (mysqli_num_rows($resultsActive) == 1) {
+      $row = mysqli_fetch_assoc($resultsActive);
       $_SESSION['username'] = $username;
       $_SESSION['success'] = "Je bent ingelogd";
+      $_SESSION['role'] = $row['rol'];
       header('location: index.php');
     } else {
       array_push($errors, "Login mislukt, controlleer alstublief of u de correcte gegevens heeft ingevoerd en of u uw account al heeft geactiveerd");
@@ -104,10 +107,14 @@ function sendEmail($name,$mail,$hash1,$passw) {
   ------------------------
    
   Klik op deze link om uw account te activeren :
-  http://localhost:8888/hanze/testomgeving/project/verify.php?email='.$mail.'&hash='.$hash1.'
+  http://localhost/project/verify.php?email='.$mail.'&hash='.$hash1.'
    
   ';
                        
+  ini_set("SMPT","SMTP-server.nl");
+  ini_set("smtp_port","25");
+  ini_set("sendmail_from","test@localhost");
+
   $headers = 'From:noreply@ytest.com' . "\r\n";
   mail($to, $subject, $message, $headers);
 }
