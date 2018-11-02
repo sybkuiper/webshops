@@ -1,5 +1,12 @@
 <?php
-include 'server.php' 
+include 'server.php';
+include 'menu.php';
+
+// Kijk of gebruiker dit mag zien
+if ( $_SESSION['role'] == 0 ) {
+    header("location: index.php");
+}
+
 ?>
 <html>	
 	<head>
@@ -62,5 +69,6 @@ include 'server.php'
 			<?php
 			}
 			?>
+     <?php include 'footer.php'; ?>
 	</body>
 </html>
