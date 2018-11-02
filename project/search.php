@@ -19,6 +19,8 @@
         } else {
           echo "<h4>Zoekterm: " . htmlspecialchars($_POST['zoekterm']) . "</h4>";
 
+          // LOCAL DB FOR TESTING
+          $db = mysqli_connect("localhost", "root", "", "thecardshop");
           $zoekterm = mysqli_real_escape_string($db, $_POST['zoekterm']); 
           $sql = "SELECT DISTINCT * FROM producten WHERE naam='$zoekterm' OR beschrijving LIKE '%$zoekterm%' OR categorie='$zoekterm'";
 
@@ -52,7 +54,7 @@
               <td><?php echo $prijs; ?></td>
               <td><?php echo $voorraad; ?> in voorraad</td>
               <td><?php echo $categorie; ?></td>
-              <td><a href='pokemon.php/?pro_id=<?php echo $pro_id; ?>'>Ga naar pagina</a></td>
+              <td><a href="shopp.php?id=<?php echo $pro_id; ?>" class='btn btn-light'>Voeg toe aan winkelmandje</a></td>
             </tr>
             <?php ;} // END WHILE
             echo "</table>";
