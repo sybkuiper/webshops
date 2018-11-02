@@ -33,6 +33,10 @@ body {
   width: 100%;
 }
 
+.thump{
+	max-width: 200px;
+}
+
 
 @media screen and (max-width: 992px) {
 .dropdown-menu.show.loginMenu {
