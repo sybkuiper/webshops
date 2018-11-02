@@ -38,7 +38,10 @@
               aria-haspopup="true" 
               aria-expanded="false"><?php echo ucfirst($_SESSION['username']);?></a>
               <div class="dropdown-menu dropdown-menu-right logoutMenu" aria-labelledby="loginDropwdown">
-                <a class="dropdown-item" href="">Profiel</a>
+                <a class="dropdown-item" href="profile.php">Profiel</a>
+                <?php if ( $_SESSION['role'] == 1 ) { ?>
+                  <a class="dropdown-item" href="orderoverzicht.php">Orderoverzicht</a>
+                <?php } ?>
                 <a class="dropdown-item" href="#">Winkelwagen</a>
                 <a class="dropdown-item" href="index.php?logout='1'">Logout</a>
               </div>
